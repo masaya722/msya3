@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 63d94ef92fb79b6c69cc616e399f652e2eec3f56
+# test
 n, m = map(int, input().split())
 C = list(map(int, input().split()))
 C.sort()
