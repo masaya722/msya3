@@ -1,4 +1,3 @@
-import itertools
 s = input()
 ans = 0
 for num in range(0, 10000):
