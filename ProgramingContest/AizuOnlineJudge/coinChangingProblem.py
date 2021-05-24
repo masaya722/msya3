@@ -1,5 +1,3 @@
-# test
-# test2
 n, m = map(int, input().split())
 C = list(map(int, input().split()))
 C.sort()
