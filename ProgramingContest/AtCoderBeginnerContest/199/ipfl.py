@@ -1,15 +1,17 @@
-n = int(input())
-s = input()
-S = list(s)
-q = int(input())
-for _ in range(q):
-    query = list(map(int, input().split()))
-    if query[0] == 1:
-        S[query[1] - 1], S[query[2] - 1] = S[query[2] - 1], S[query[1] - 1]
-        s = ''.join(S)
-    else:
-        s = s[n:2 * n:] + s[0:n:]
-        S = list(s)
+N = int(input())
+S = list(input())
+Q = int(input())
+flag = False
+for i in range(Q):
+    t, a, b = map(int, input().split())
+    if t == 1:
+        if flag:
+            a = (a+N)%(2*N)
+            b = (b+N)%(2*N)
+        S[a-1],S[b-1] = S[b-1],S[a-1]
 
-new_s = ''.join(S)
-print(new_s)
+    if t == 2:
+        flag = not flag
+if flag:
+    S[0:N],S[N:] = S[N:],S[0:N]
+print("".join(S))
