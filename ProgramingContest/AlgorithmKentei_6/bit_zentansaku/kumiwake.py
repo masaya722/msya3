@@ -7,10 +7,8 @@ for i in range(N - 1):
 ALL = 1 << N
 happy = [0] * ALL
 
-
 def has_bit(n, i):
     return n & (1 << i) > 0
-
 
 for n in range(ALL):
     for i in range(N):
@@ -19,7 +17,6 @@ for n in range(ALL):
                 happy[n] += A[i][j]
 
 ans = -10 * 100
-
 for n1 in range(ALL):
     for n2 in range(ALL):
         if n1 & n2 > 0:
