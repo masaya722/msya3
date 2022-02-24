@@ -1,52 +1,53 @@
+from types import coroutine
+
+
 N = int(input())
 C = list(map(int,input().split()))
 Q = int(input())
-
-sell = 0
+zen_sell = 0
 set_sell = 0
-all_sell = 0
-
-min_set_sell = 10**10
-min_all_sell = 10**10
-
-for i in range(N):
-    if i%2==0:
-        min_set_sell = min(min_set_sell,C[i])
-    else:
-        min_all_sell = min(min_all_sell,C[i])
-
-for _ in range(Q):
-    query = list(input().split())
-    if query[0]=='1':
-        x = int(query[1])-1
-        a = int(query[2])
-        if x%2 ==0:
-            if C[x]-set_sell-all_sell>=a:
-                sell+=a
-                C[x]-=a
-                min_set_sell = min(min_set_sell,C[x])
-            else:
-                continue
-        else:
-            if C[x]-all_sell>=a:
-                sell+=a
-                C[x]-=a
-                min_all_sell = min(min_all_sell,C[x])
-            else:
-                continue
-    elif query[0]=='2':
-        a = int(query[1])
-        if min_set_sell-all_sell>=a:
-            set_sell+=a
-            min_set_sell-=a
-    else:
-        a =int(query[1])
-        if min(min_set_sell-all_sell,min_all_sell)>=a:
-            all_sell+=a
-            min_all_sell-=a
-
+one_sell = 0
+# セット販売、全販売における最小個数
+min_set = 10**18
+min_zen = 10**18
 for i in range(N):
     if i%2 ==0:
-        sell+=set_sell
-sell+=all_sell*N
-print(sell)
+        min_set = min(min_set,C[i])
+    else:
+        min_zen = min(min_zen,C[i])
+
+for i in range(Q):
+    s = list(input().split())
+    query = s[0]
+    if query =='1':
+        x = int(s[1])-1
+        a = int(s[2])
+        if x%2==0:
+            if C[x]-set_sell-zen_sell<a:
+                continue
+            C[x]-=a
+            one_sell +=a
+            min_set = min(min_set,C[x])
+        else:
+            if C[x]-zen_sell<a:
+                continue
+            C[x]-=a
+            one_sell +=a
+            min_zen = min(min_zen,C[x])
+    elif query =='2':
+        a = int(s[1])
+        if min_set-zen_sell>=a:
+            set_sell+=a
+            min_set = min(min_set,min_set-a)
+    else:
+        a = int(s[1])
+        if min(min_zen,min_set-zen_sell) >=a:
+            zen_sell+=a
+            min_zen = min(min_zen,min_zen-a)
+
+ans = one_sell
+for i in range(N):
+    if i%2 ==0:
+        ans+=set_sell
+ans+=zen_sell*N
+print(ans)
